@@ -36,6 +36,13 @@ const text = (() => {
   }
 
   function formHandler(e) {
+    e.preventDefault();
+
+    var input = e.target.children[0].value;
+    console.log(input);
+    add(input);
+
+
     
   }
 
@@ -55,6 +62,18 @@ const text = (() => {
 
   // fall sem sér um að bæta við nýju item
   function add(value) {
+
+    var li = el('li','item',null);
+    var checkbox = el('input', 'item__checkbox', finish);
+    var text = el('span','item__text', null);
+    var button = el('button','item__button', deleteItem);
+
+    li.appendChild(checkbox);
+    li.appendChild(text);
+    li.appendChild(button);
+    items.appendChild(li);
+
+
   }
 
   // event handler til að eyða færslu
@@ -65,6 +84,11 @@ const text = (() => {
   // hjálparfall til að útbúa element
   function el(type, className, clickHandler) {
     const el = document.createElement(type);
+    el.setAttribute('class', className);
+    if(clickHandler){
+      el.addEventListener('click', clickHandler);
+    }
+    return el;
   }
 
   return {
