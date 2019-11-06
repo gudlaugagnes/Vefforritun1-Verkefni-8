@@ -41,9 +41,8 @@ const text = (() => {
     var input = e.target.children[0].value;
     console.log(input);
     if(input != ""){
-      add(input);
+      add(input); 
     }
-
 
     
   }
@@ -55,6 +54,21 @@ const text = (() => {
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
+    console.log(e.target.parentNode);
+    var oldEl = e.target.parentNode;
+    var newEl = el('li','item',null);
+
+    var checkbox = el('input', 'item__checkbox', finish);
+    var input = el('input','item__edit',commit)
+    var button = el('button','item__button', deleteItem);
+    
+
+    newEl.appendChild(checkbox);
+    newEl.appendChild(input);
+    newEl.appendChild(button);
+    oldEl.parentNode.replaceChild(newEl, oldEl);
+
+
     
   }
 
