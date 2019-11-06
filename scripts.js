@@ -67,7 +67,7 @@ const text = (() => {
 
     var li = el('li','item',null);
     var checkbox = el('input', 'item__checkbox', finish);
-    var text = el('span','item__text', null);
+    var text = el('span','item__text', edit);
     var button = el('button','item__button', deleteItem);
 
     li.appendChild(checkbox);
@@ -93,6 +93,9 @@ const text = (() => {
     }
     if(className == 'item__button'){
        el.innerHTML = "Eyða";
+    }
+    if(clickHandler){
+      el.addEventListener('click', clickHandler);
     }
     
     
