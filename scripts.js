@@ -43,7 +43,6 @@ const text = (() => {
     if(input != ""){
       add(input); 
     }
-
     
   }
 
@@ -54,7 +53,7 @@ const text = (() => {
 
   // event handler fyrir það að breyta færslu
   function edit(e) {
-    console.log(e.target.parentNode);
+    var taskText = e.target.parentNode.children[1].innerHTML;
     var oldEl = e.target.parentNode;
     var newEl = el('li','item',null);
 
@@ -62,18 +61,36 @@ const text = (() => {
     var input = el('input','item__edit',commit)
     var button = el('button','item__button', deleteItem);
     
-
     newEl.appendChild(checkbox);
     newEl.appendChild(input);
     newEl.appendChild(button);
+    newEl.children[1].value = taskText;
+
     oldEl.parentNode.replaceChild(newEl, oldEl);
-
-
-    
+    newEl.focus();
   }
 
   // event handler fyrir það að klára að breyta færslu
   function commit(e) {
+    if(e.keyCode==ENTER_KEYCODE){
+      var taskText = e.target.value;
+      var oldEl = e.target.parentNode;
+      var newEl = el('li','item',null);
+      
+      var checkbox = el('input', 'item__checkbox', finish);
+      var text = el('span','item__text', edit);
+      var button = el('button','item__button', deleteItem);
+
+      newEl.appendChild(checkbox);
+      newEl.appendChild(text);
+      newEl.appendChild(button);
+      newEl.children[1].innerHTML = taskText;
+
+      oldEl.parentNode.replaceChild(newEl,oldEl);
+
+
+    }
+
   }
 
   // fall sem sér um að bæta við nýju item
@@ -107,6 +124,9 @@ const text = (() => {
     }
     if(className == 'item__button'){
        el.innerHTML = "Eyða";
+    }
+    if(clickHandler == commit){
+      el.addEventListener('keydown', commit);
     }
     if(clickHandler){
       el.addEventListener('click', clickHandler);
