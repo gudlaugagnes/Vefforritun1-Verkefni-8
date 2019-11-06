@@ -40,7 +40,9 @@ const text = (() => {
 
     var input = e.target.children[0].value;
     console.log(input);
-    add(input);
+    if(input != ""){
+      add(input);
+    }
 
 
     
