@@ -26,24 +26,21 @@ const text = (() => {
         button[i].addEventListener('click', deleteItem);
       }
 
-
       const checkbox = document.getElementsByClassName('item__checkbox');
       for(var i=0;i<checkbox.length; i++){
         checkbox[i].addEventListener('click', finish);
       }
     
-
   }
 
   function formHandler(e) {
     e.preventDefault();
-
     var input = e.target.children[0].value;
-    console.log(input);
+   
     if(input != ""){
       add(input); 
-    }
-    
+      e.target.children[0].value = "";
+    } 
   }
 
   // event handler fyrir það að klára færslu
@@ -54,43 +51,24 @@ const text = (() => {
   // event handler fyrir það að breyta færslu
   function edit(e) {
     var taskText = e.target.parentNode.children[1].innerHTML;
-    var oldEl = e.target.parentNode;
-    var newEl = el('li','item',null);
-
-    var checkbox = el('input', 'item__checkbox', finish);
-    var input = el('input','item__edit',commit)
-    var button = el('button','item__button', deleteItem);
+    var listItemEl = e.target.parentNode;
+    var inputField = el('input','item__edit',commit);
     
-    newEl.appendChild(checkbox);
-    newEl.appendChild(input);
-    newEl.appendChild(button);
-    newEl.children[1].value = taskText;
-
-    oldEl.parentNode.replaceChild(newEl, oldEl);
-    newEl.focus();
+    inputField.value = taskText;
+    listItemEl.replaceChild(inputField, listItemEl.children[1]);
+    inputField.focus();
   }
 
   // event handler fyrir það að klára að breyta færslu
   function commit(e) {
     if(e.keyCode==ENTER_KEYCODE){
       var taskText = e.target.value;
-      var oldEl = e.target.parentNode;
-      var newEl = el('li','item',null);
-      
-      var checkbox = el('input', 'item__checkbox', finish);
-      var text = el('span','item__text', edit);
-      var button = el('button','item__button', deleteItem);
-
-      newEl.appendChild(checkbox);
-      newEl.appendChild(text);
-      newEl.appendChild(button);
-      newEl.children[1].innerHTML = taskText;
-
-      oldEl.parentNode.replaceChild(newEl,oldEl);
-
-
+      var listItemEl = e.target.parentNode;
+      var span = el('span', 'item__text',edit);
+     
+      span.innerHTML = taskText;
+      listItemEl.replaceChild(span, listItemEl.children[1]);
     }
-
   }
 
   // fall sem sér um að bæta við nýju item
