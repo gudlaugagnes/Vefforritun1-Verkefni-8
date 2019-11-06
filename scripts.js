@@ -71,6 +71,7 @@ const text = (() => {
     li.appendChild(checkbox);
     li.appendChild(text);
     li.appendChild(button);
+    li.children[1].innerHTML = value;
     items.appendChild(li);
 
 
@@ -83,11 +84,16 @@ const text = (() => {
 
   // hjálparfall til að útbúa element
   function el(type, className, clickHandler) {
-    const el = document.createElement(type);
+    var el = document.createElement(type);
     el.setAttribute('class', className);
-    if(clickHandler){
-      el.addEventListener('click', clickHandler);
+    if(className == 'item__checkbox'){
+      el.type = "checkbox";
     }
+    if(className == 'item__button'){
+       el.innerHTML = "Eyða";
+    }
+    
+    
     return el;
   }
 
