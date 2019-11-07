@@ -37,7 +37,7 @@ const text = (() => {
     e.preventDefault();
     var input = e.target.children[0].value;
    
-    if(input != ""){
+    if(input != "" && input.replace(/\s/g, '') != 0){
       add(input); 
       e.target.children[0].value = "";
     } 
