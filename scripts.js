@@ -16,31 +16,31 @@ const text = (() => {
 
     // TODO láta hluti í _items virka
 
-      const text = document.getElementsByClassName('item__text');
-      for(var i=0;i<text.length; i++){
-        text[i].addEventListener('click', edit);
-      }
+    const text = document.getElementsByClassName('item__text');
+    for (var i = 0; i < text.length; i++) {
+      text[i].addEventListener('click', edit);
+    }
 
-      const button = document.getElementsByClassName('item__button');
-      for(var i=0;i<button.length; i++){
-        button[i].addEventListener('click', deleteItem);
-      }
+    const button = document.getElementsByClassName('item__button');
+    for (var i = 0; i < button.length; i++) {
+      button[i].addEventListener('click', deleteItem);
+    }
 
-      const checkbox = document.getElementsByClassName('item__checkbox');
-      for(var i=0;i<checkbox.length; i++){
-        checkbox[i].addEventListener('click', finish);
-      }
-    
+    const checkbox = document.getElementsByClassName('item__checkbox');
+    for (var i = 0; i < checkbox.length; i++) {
+      checkbox[i].addEventListener('click', finish);
+    }
+
   }
 
   function formHandler(e) {
     e.preventDefault();
     var input = e.target.children[0].value;
-   
-    if(input != "" && input.replace(/\s/g, '') != 0){
-      add(input); 
+
+    if (input.replace(/\s/g, '') != 0) {
+      add(input);
       e.target.children[0].value = "";
-    } 
+    }
   }
 
   // event handler fyrir það að klára færslu
@@ -52,8 +52,8 @@ const text = (() => {
   function edit(e) {
     var taskText = e.target.parentNode.children[1].innerHTML;
     var listItemEl = e.target.parentNode;
-    var inputField = el('input','item__edit',commit);
-    
+    var inputField = el('input', 'item__edit', commit);
+
     inputField.value = taskText;
     listItemEl.replaceChild(inputField, listItemEl.children[1]);
     inputField.focus();
@@ -61,11 +61,11 @@ const text = (() => {
 
   // event handler fyrir það að klára að breyta færslu
   function commit(e) {
-    if(e.keyCode==ENTER_KEYCODE){
+    if (e.keyCode == ENTER_KEYCODE) {
       var taskText = e.target.value;
       var listItemEl = e.target.parentNode;
-      var span = el('span', 'item__text',edit);
-     
+      var span = el('span', 'item__text', edit);
+
       span.innerHTML = taskText;
       listItemEl.replaceChild(span, listItemEl.children[1]);
     }
@@ -74,10 +74,10 @@ const text = (() => {
   // fall sem sér um að bæta við nýju item
   function add(value) {
 
-    var li = el('li','item',null);
+    var li = el('li', 'item', null);
     var checkbox = el('input', 'item__checkbox', finish);
-    var text = el('span','item__text', edit);
-    var button = el('button','item__button', deleteItem);
+    var text = el('span', 'item__text', edit);
+    var button = el('button', 'item__button', deleteItem);
 
     li.appendChild(checkbox);
     li.appendChild(text);
@@ -97,20 +97,20 @@ const text = (() => {
   function el(type, className, clickHandler) {
     var el = document.createElement(type);
     el.setAttribute('class', className);
-    if(className == 'item__checkbox'){
+    if (className == 'item__checkbox') {
       el.type = "checkbox";
     }
-    if(className == 'item__button'){
-       el.innerHTML = "Eyða";
+    if (className == 'item__button') {
+      el.innerHTML = "Eyða";
     }
-    if(clickHandler == commit){
+    if (clickHandler == commit) {
       el.addEventListener('keydown', commit);
     }
-    if(clickHandler){
+    if (clickHandler) {
       el.addEventListener('click', clickHandler);
     }
-    
-    
+
+
     return el;
   }
 
